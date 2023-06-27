@@ -1,0 +1,1082 @@
+openapi: "3.0.2"
+info:
+  title: MeinBank API
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/FLORIANTJEERTES_1/MeinBank/1.0.0
+  - url: https://api.server.test/v1
+  - url: localhost:8080/
+
+paths:
+  # users
+  /users:
+    get:
+      summary: Get all users
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A JSON array containing all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - $ref: "#/components/schemas/User"
+              example:
+                - id: 1
+                  role: Customer
+                  username: "johndoe"
+                  password: "john123"
+                  firstName: "John"
+                  lastName: "Doe"
+                  email: "johndoe@mail.com"
+                  phoneNumber: "06 12345678"
+                  birthdate: "2000-01-02"
+                  dayLimit: 1000
+                  transactionLimit: 200
+                  isDeleted: false
+                - id: 2
+                  role: Customer
+                  username: "janedoe"
+                  password: "jane123"
+                  firstName: "Jane"
+                  lastName: "Doe"
+                  email: "janedoe@mail.com"
+                  phoneNumber: "06 12345678"
+                  birthdate: "2000-01-02"
+                  dayLimit: 500
+                  transactionLimit: 200
+                  isDeleted: false
+                - id: 3
+                  role: Customer
+                  username: "richdoe"
+                  password: "rich123"
+                  firstName: "Rich"
+                  lastName: "Doe"
+                  email: "richdoe@mail.com"
+                  phoneNumber: "06 12345678"
+                  birthdate: "2000-01-02"
+                  dayLimit: 2000
+                  transactionLimit: 300
+                  isDeleted: false
+                - id: 4
+                  role: Customer
+                  username: "jake"
+                  password: "jake123"
+                  firstName: "Jake"
+                  lastName: "Doe"
+                  email: "jakedoe@mail.com"
+                  phoneNumber: "06 12345678"
+                  birthdate: "2000-01-02"
+                  dayLimit: 800
+                  transactionLimit: 200
+                  isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+
+      tags:
+        - "users"
+
+    post:
+      summary: Create a new user
+      requestBody:
+        description: A JSON object with all the needed values for creating the User object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              username: "johndoe"
+              password: "john123"
+              firstName: "John"
+              lastName: "Doe"
+              email: "johndoe@mail.com"
+              phoneNumber: "06 12345678"
+              birthdate: "2000-01-02"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: 1
+                role: Customer
+                username: "johndoe"
+                password: "john123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "johndoe@mail.com"
+                phoneNumber: "06 12345678"
+                birthdate: "2000-01-02"
+                dayLimit: 1000
+                transactionLimit: 200
+                isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "users"
+
+  /users/{userId}:
+    get:
+      summary: Get a specific user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: 1
+                role: Customer
+                username: "johndoe"
+                password: "john123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "johndoe@mail.com"
+                phoneNumber: "06 12345678"
+                birthdate: "2000-01-02"
+                dayLimit: 1000
+                transactionLimit: 200
+                isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "users"
+
+    put:
+      summary: Update a specific user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              id: 1
+              role: Customer
+              username: "janedoe"
+              password: "jane123"
+              firstName: "Jane"
+              lastName: "Doe"
+              email: "janedoe@mail.com"
+              phoneNumber: "06 12345678"
+              birthdate: "2000-01-02"
+              dayLimit: 1000
+              transactionLimit: 200
+              isDeleted: false
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: 1
+                role: Customer
+                username: "janedoe"
+                password: "jane123"
+                firstName: "Jane"
+                lastName: "Doe"
+                email: "janedoe@mail.com"
+                phoneNumber: "06 12345678"
+                birthdate: "2000-01-02"
+                dayLimit: 1000
+                transactionLimit: 200
+                isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "users"
+
+    delete:
+      summary: Delete a specific user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "users"
+
+  /users/{userId}/accounts:
+    get:
+      summary: Get the accounts of a specific user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+              example:
+                - id: 97
+                  iban: NL02INHO0000000002
+                  userId: 1
+                  balance: 130.23
+                  absoluteLimit: -2000
+                  role: Current
+                  isDeleted: false
+                - id: 101
+                  iban: NL34INHO0000000034
+                  userId: 1
+                  balance: 927
+                  absoluteLimit: -1000
+                  role: Current
+                  isDeleted: false
+                - id: 102
+                  iban: NL25INHO0000565632
+                  userId: 1
+                  balance: -187.01
+                  absoluteLimit: -2000
+                  role: Current
+                  isDeleted: false
+                - id: 134
+                  iban: NL62INHO0062924932
+                  userId: 1
+                  balance: 72382130.23
+                  absoluteLimit: -2000
+                  role: Savings
+                  isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "users"
+
+  # accounts
+  /accounts:
+    get:
+      summary: Get all accounts
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+              example:
+                - id: 97
+                  iban: NL02INHO0000000002
+                  userId: 1
+                  balance: 130.23
+                  absoluteLimit: -2000
+                  role: Current
+                  isDeleted: false
+                - id: 101
+                  iban: NL34INHO0000000034
+                  userId: 1
+                  balance: 927
+                  absoluteLimit: -1000
+                  role: Current
+                  isDeleted: false
+                - id: 102
+                  iban: NL25INHO0000565632
+                  userId: 1
+                  balance: -187.01
+                  absoluteLimit: -2000
+                  role: Current
+                  isDeleted: false
+                - id: 134
+                  iban: NL62INHO0062924932
+                  userId: 1
+                  balance: 72382130.23
+                  absoluteLimit: -2000
+                  role: Savings
+                  isDeleted: false
+
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+    post:
+      summary: Create a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account"
+            example:
+              iban: NL02INHO0000000002
+              userId: 1
+              balance: 130.23
+              absoluteLimit: -2000
+              role: Current
+              isDeleted: false
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+  # accounts/{iban}
+  /accounts/{iban}:
+    get:
+      summary: Get a specific account
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+        - name: iban
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+              example:
+                iban: NL02INHO0000000002
+                userId: 1
+                balance: 130.23
+                absoluteLimit: -2000
+                role: Current
+                isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+    put:
+      summary: Update a specific account
+      parameters:
+        - name: iban
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account"
+            example:
+              iban: NL02INHO0000000002
+              userId: 1
+              balance: 130.23
+              absoluteLimit: -2000
+              role: Current
+              isDeleted: false
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+              example:
+                iban: NL02INHO0000000002
+                userId: 1
+                balance: 130.23
+                absoluteLimit: -2000
+                role: Current
+                isDeleted: false
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+    delete:
+      summary: Delete a specific account
+      parameters:
+        - name: iban
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+  /accounts/{iban}/transactions:
+    get:
+      summary: Get all transactions of a specific account
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+        - name: iban
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+              example:
+               - id: 0
+                 timestamp: 2012-04-23T18:25:43.511Z
+                 accountFrom: NL02INHO0000000002
+                 accountTo:  NL02INHO0000000002
+                 amount: 100
+                 performingUser: false
+                 description: "Payment"
+
+               - id: 1
+                 timestamp: 2012-04-23T18:25:43.511Z
+                 accountFrom: NL02INHO0000000003
+                 accountTo:  NL02INHO0000000003
+                 amount: 100
+                 performingUser: false
+                 description: "payment"
+                
+
+               
+
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+  /accounts/{iban}/balance:
+    get:
+      summary: Get the balance of a specific account
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+        - name: iban
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+              example:
+                id: 0
+                timestamp: 1
+                accountFrom: NL02INHO0000000002
+                accountTo:  NL02INHO0000000002
+                amount: 100
+                performingUser: false
+                description: "Payment"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "accounts"
+
+  #transactions
+  /transactions:
+    get:
+      summary: Get all transactions
+      parameters:
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - $ref: "#/components/schemas/Transaction"
+              example:
+                - id: 1
+                  timestamp: 2023-01-02 01:23:45
+                  accountFrom: NL01INHO0000000001
+                  accountTo: NL02INHO0000000002
+                  amount: 340
+                  performingUser: 1
+                  description: "Money laundering"
+                - id: 2
+                  timestamp: 2023-01-02 01:23:45
+                  accountFrom: NL24INHO0000000121
+                  accountTo: NL34INHO0000000034
+                  amount: 200
+                  performingUser: 1
+                  description: "Money laundering"
+                - id: 3
+                  timestamp: 2023-01-02 01:23:45
+                  accountFrom: NL04INHO0000000004
+                  accountTo: NL06INHO0000000006
+                  amount: 120
+                  performingUser: 1
+                  description: "Money laundering"
+                - id: 4
+                  timestamp: 2023-01-02 01:23:45
+                  accountFrom: NL01INHO0000000001
+                  accountTo: NL00INHO0000000194
+                  amount: 2.10
+                  performingUser: 1
+                  description: "Money laundering"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "transactions"
+
+    post:
+      summary: Create a new transaction
+      requestBody:
+        description: A JSON object containing all the values needed to create a transaction.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+            example:
+              id: 1
+              timestamp: 2020-01-01 00:00:00
+              accountFrom: NL02INHO0000000002
+              accountTo: NL34INHO0000000034
+              amount: 100
+              performingUser: 1
+              description: "Test transaction"         
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+              example:
+                id: 1
+                timestamp: 2020-01-01 00:00:00
+                accountFrom: NL02INHO0000000002
+                accountTo: NL34INHO0000000034
+                amount: 100
+                performingUser: 1
+                description: "Test transaction"              
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "transactions"
+
+  /transactions/{transactionId}:
+    get:
+      summary: Get a specific transaction
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: fields
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+              example:
+                id: 1
+                timestamp: 2023-01-02 01:23:45
+                accountFrom: NL01INHO0000000001
+                accountTo: NL02INHO0000000002
+                amount: 340
+                performingUser: 1
+                description: "Money laundering"
+                
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      tags:
+        - "transactions"
+
+        # put:
+        #   summary: Update a specific transaction
+        #   parameters:
+        #     - name: transactionId
+        #       in: path
+        #       required: true
+        #       schema:
+        #         type: integer
+        #   responses:
+        #     "200":
+        #       description: A JSON object of the updated transaction
+        #   tags:
+        #     - "transactions"
+
+    # delete:
+    #   summary: Delete a specific transaction
+    #   parameters:
+    #     - name: transactionId
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #   responses:
+    #     "200":
+    #       description: A JSON object of the deleted transaction
+    #   tags:
+    #     - "transactions"
+
+  /authenticate:
+    post:
+      summary: Authenticate a specific user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  nullable: false
+                password:
+                  type: string
+                  format: password
+                  nullable: false
+            example:
+              email: johndoe@mail.com
+              password: $2y$10$MWJ5dfJJZHEAIy5YXkzMsu88Oed2PnlDvN5E7MJ.ag38yh1wn0pM6
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jwt:
+                    type: string
+                    nullable: false
+              example:
+                jwt: eyJhbGci0iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaXNTb2NpYWwiOnRydWV9.4pcPyMD09olPSyXnrXCjTwXyr4BsezdI1AVTmud2fU4
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      tags:
+        - "authenticate"
+
+# write generic schemas here so it can easily be used in multiple endpoints uncomment the following lines and add your schemas
+components:
+  schemas:
+    EndpointBase:
+      type: object
+      description: Base components of an endpoint such as filter, fields, limit, offset, etc...
+      properties:
+        filter:
+          type: string
+          nullable: true
+        fields:
+          type: string
+          nullable: true
+        limit:
+          type: integer
+          nullable: false
+          default: 12
+        offset:
+          type: integer
+          nullable: false
+          default: 0
+    Role:
+      type: string
+      enum:
+        - Customer
+        - Employee
+    User:
+      type: object
+      description: This object can be an Employee and/or Customer and is used for authentication and settings day and transaction limits
+      required:
+        - username
+        - password
+        - firstName
+        - lastName
+        - email
+        - phoneNumber
+        - birthdate
+      properties:
+        id:
+          type: integer
+          nullable: false
+          minimum: 0
+        role:
+          $ref: "#/components/schemas/Role"
+        username:
+          type: string
+          nullable: false
+        password:
+          type: string
+          nullable: false
+        firstName:
+          type: string
+          nullable: false
+        lastName:
+          type: string
+          nullable: false
+        email:
+          type: string
+          nullable: false
+        phoneNumber:
+          type: string
+          nullable: false
+        birthdate:
+          type: string
+          format: date
+          nullable: false
+        dayLimit:
+          type: number
+          nullable: false
+          minimum: 0
+          default: 1000
+        transactionLimit:
+          type: number
+          nullable: false
+          minimum: 0
+          default: 200
+        isDeleted:
+          type: boolean
+          nullable: false
+          default: false
+
+    AccountType:
+      type: string
+      enum:
+        - Current
+        - Savings
+
+    Account:
+      type: object
+      description: This object is used as a base class for the SavingsAccount and CurrentAccount classes
+      required:
+        - userId
+        - accountType
+      properties:
+        id:
+          type: integer
+          nullable: false
+          minimum: 0
+        iban:
+          type: string
+          nullable: false
+          minLength: 18
+          maxLength: 18
+          pattern: "/NL[0-9]{2}INHO0[0-9]{9}/gs"
+        userId:
+          $ref: "#/components/schemas/User"
+        balance:
+          type: number
+          nullable: false
+          default: 0
+        absoluteLimit:
+          type: number
+          nullable: false
+          default: 0
+        accountType:
+          $ref: "#/components/schemas/AccountType"
+        isDeleted:
+          type: boolean
+          nullable: false
+          default: false
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          nullable: false
+          minimum: 0
+        timestamp:
+          type: string
+          format: date-time
+          nullable: false
+        accountFrom:
+          $ref: "#/components/schemas/Account"
+        accountTo:
+          $ref: "#/components/schemas/Account"
+        amount:
+          type: number
+          format: double
+          nullable: false
+        performingUser:
+          $ref: "#/components/schemas/User"
+        description:
+          type: string
+          nullable: true
